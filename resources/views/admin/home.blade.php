@@ -20,7 +20,7 @@
         </div>
         <div class="col-md-8 mt-5">
         <h2>Welcome back <span class="text-primary">{{ Auth::user()->name }}</span>!</h2>
-        <a href="{{ route('admin.posts.index') }}"> Manage your posts</a> or <a href="{{ route('home')}}"> return to site</a>
+        <a href="{{ route('admin.posts.index') }}"> Manage your posts</a> or <a href="{{ route('guest.welcome')}}"> return to site</a>
         </div>
     </div>
 </div>

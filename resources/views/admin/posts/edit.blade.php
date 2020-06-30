@@ -4,7 +4,7 @@
 <div class="container">
     
     <div class="title-page mb-5">
-        <h1>Create New Post</h1>
+    <h1>Edit Post: {{ $post->title }}</h1>
     </div>
     
     @if ($errors->any())
@@ -17,7 +17,7 @@
         </div>
     @endif
 
-    <form action="{{ route('admin.posts.update', $post->id) }}" method="POST">
+    <form action="{{ route('admin.posts.update', $post->id) }}" method="POST" enctype="multipart/form-data">
         @csrf
         @method('PATCH')
 
@@ -28,7 +28,17 @@
 
         <div class="form-group">
             <label for="body">Body</label>
-            <input type="text" name="body" id="body" class="form-control" value="{{ old('body', $post->body) }}">
+            <textarea type="text" name="body" id="body" class="form-control">{{ old('body', $post->body) }}</textarea>
+        </div>
+
+        <div class="form-group">
+            <label for="path_img">Post Image</label>
+            @isset($post->path_img)
+            <img class="d-block"  width="200" src=" {{ asset('storage/' . $post->path_img) }} " alt="{{$post->title}}">
+
+            <h6 class="mt-3">Change:</h6>
+            @endisset
+            <input type="file" name="path_img" id="path_img" class="form-control" accept="image/*">
         </div>
 
         <input class="btn btn-success" type="submit" value="Edit post">

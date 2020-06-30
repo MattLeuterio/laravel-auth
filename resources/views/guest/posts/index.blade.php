@@ -6,6 +6,9 @@
     @foreach($posts as $post)
     <article class="mb-3">
         <h2>{{$post->title}}</h2>
+        @if(isset($post->path_img))
+            <img width="400" src="{{ asset('storage/' . $post->path_img) }}" alt="">
+        @endif
         <p>{{$post->body}}</p>
     </article>
     @endforeach

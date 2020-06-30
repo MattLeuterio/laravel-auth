@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use App\Post;
@@ -49,6 +50,11 @@ class PostController extends Controller
         $data['user_id'] = Auth::id();
 
         $data['slug'] = Str::slug($data['title'], '-');
+
+        // set image
+        if(!empty($data['path_img'])) {
+            $data['path_img'] = Storage::disk('public')->put('images', $data['path_img']);
+        }
 
         $newPost = new Post();
         $newPost->fill($data);
@@ -98,6 +104,18 @@ class PostController extends Controller
 
         $data = $request->all();
         $data['slug'] = Str::slug($data['title'], '-');
+
+        if(!empty($data['path_img'])) {
+
+            //delete previous image
+            if(!empty($post->path_img)) {
+                Storage::disk('public')->delete($post->path_img);
+            }
+
+            // Set new image
+            $data['path_img'] = Storage::disk('public')->put('images', $data['path_img']);
+        }
+
         $updated = $post->update($data);
 
         if($updated) {
@@ -135,7 +153,8 @@ class PostController extends Controller
      {
          return [
              'title' => 'required',
-             'body' => 'required'
+             'body' => 'required',
+             'path_img' => 'image',
          ];
      }
 }

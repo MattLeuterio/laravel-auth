@@ -35,7 +35,7 @@
                     <ul class="navbar-nav mr-auto">
                         <a href="{{ route('admin.posts.index') }}" class="nav-link">Blog's Posts</a>
                         <a href="{{ route('admin.posts.create') }}" class="nav-link">New Post</a>
-                        <a href="{{ route('home') }}" class="nav-link">Return to site</a>
+                        <a href="{{ route('guest.welcome') }}" class="nav-link">Return to site</a>
                     </ul>
 
                     <!-- Right Side Of Navbar -->
